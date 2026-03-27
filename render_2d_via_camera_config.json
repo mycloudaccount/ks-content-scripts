@@ -1,0 +1,65 @@
+{
+  "GLB_PATH_ORG": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/eddie/eddie.glb",
+  "GLB_PATH": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/sally/sally.glb",
+  "RENDER_SIZE": 256,
+  "CAMERA_FOV_DEG": 35.0,
+  "CAMERA_HEIGHT_OFFSET": 1.0,
+  "FIT_PADDING": 1.0,
+  "BACKGROUND_TRANSPARENT": true,
+  "MAX_FRAMES_PER_ANIM": 24,
+  "MIN_FRAME_STEP": 2,
+  "TARGET_CHARACTER_HEIGHT": 10.0,
+  "PERSPECTIVE_DISTANCE_MULTIPLIER": 1.25,
+  "ROTATE_CHARACTER_X": 0.0,
+  "ROTATE_CHARACTER_Y": 0.0,
+  "ROTATE_CHARACTER_Z": 0.0,
+  "CLEAN_VIEW_DIR": true,
+  "CHAR_SETTINGS": {
+    "JUMP_STRENGTH": 12.0,
+    "SPRITE_SCALE_FACTOR": 0.24,
+    "DEFAULT_ANIMATION_NAME": "idle"
+  },
+  "ENABLE_HEADSHOTS": true,
+  "HEADSHOT_HEIGHT_RATIO": 0.35,
+  "HEADSHOT_FRAME": 0,
+  "HEADSHOT_FILENAME": "headshot.png",
+  "SHADOWS": {
+    "ENABLED": false,
+    "KEY_SOFT_SIZE": 3.2,
+    "FILL_SOFT_SIZE": 2.0,
+    "KEY_ENERGY": 1.0,
+    "FILL_ENERGY": 0.8,
+    "SUN_ANGLE_DEG": 4.0
+  },
+  "LIGHTING": {
+    "EXPOSURE": 1.0,
+    "INDIRECT_INTENSITY": 2.02,
+    "INDIRECT_COLOR": [1.0, 1.0, 1.0],
+    "TONE_MAPPING": "Filmic",
+    "AO_ENABLED": true,
+    "AO_INTENSITY": 5.89,
+    "AO_DISTANCE": 5.0
+  },
+  "FEATURES": {
+    "SCALE_NORMALIZATION": true,
+    "GROUNDING": true,
+    "CAMERA_FIT": true,
+    "LIGHTING": true,
+    "WORLD_LIGHTING": true,
+    "EMISSION": false,
+    "BLOOM": true,
+    "ORTHO_CAMERA": true
+  },
+  "EMISSION": {
+    "COLOR": [1.0, 1.0, 1.0, 1.0],
+    "STRENGTH": 0.5,
+    "MODE": "ADD"
+  },
+  "VIEWS": {
+    "left": [-1, 0, -90]
+  },
+  "UPLOAD_TO_AZURE": true,
+  "AZURE_STORAGE_ACCOUNT_NAME": "ksstorage",
+  "AZURE_CONTAINER_NAME": "game-assets",
+  "AZURE_BLOB_PREFIX": "characters"
+}

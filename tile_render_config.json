@@ -1,0 +1,105 @@
+{
+  "input_dir": "C:/myapps/temp",
+  "output_dir": "C:/myapps/temp",
+
+  "engine": "CYCLES",
+  "transparent_background": true,
+
+  "resolution_x": 256,
+  "resolution_y": 256,
+  "resolution_percentage": 100,
+
+  "cycles_samples": 64,
+  "cycles_denoise": true,
+
+  "views": ["right", "back", "left", "front"],
+
+  "camera_ortho": true,
+  "camera_ortho_zoom": 1,
+  "camera_fit_safety": 1.0,
+  "camera_distance": 5.0,
+
+  "lighting_mode": "CAMERA",
+  "cleanup_between_files": true,
+
+  "upload_to_azure": true,
+  "azure_upload_mode": "zip",
+  "azure_storage_account_name": "ksstorage",
+  "azure_container_name": "game-assets",
+  "azure_blob_prefix": "tiles",
+  "azure_zip_filename": "tiles_bundle.zip",
+
+  "write_tiles_manifest": true,
+  "tiles_manifest_filename": "tiles.json",
+  "tiles_manifest_version": 1,
+  "tiles_manifest_generated_by": "kingdom-stack-blender",
+
+  "tile_defaults": {
+    "kind": "tile",
+    "uiColor": "bg-gray-400",
+    "properties": {}
+  },
+
+  "tile_metadata": {
+    "minecraft_dirt": {
+      "phaserColor": 5636608,
+      "properties": {
+        "biome": "grassland",
+        "type": "dirt"
+      }
+    },
+    "minecraft_dirt_grass": {
+      "phaserColor": 5833216,
+      "uiColor": "bg-green-500",
+      "properties": {
+        "walkable": true,
+        "cost": 1,
+        "biome": "grassland",
+        "type": "dirt_grass",
+        "uiColor": "bg-green-500"
+      }
+    },
+    "minecraft_sand": {
+      "phaserColor": 11628597,
+      "properties": {
+        "biome": "desert",
+        "type": "sand"
+      }
+    },
+    "minecraft_stone": {
+      "phaserColor": 4802889,
+      "properties": {
+        "biome": "mountain",
+        "type": "stone"
+      }
+    },
+    "minecraft_water": {
+      "phaserColor": 610746,
+      "uiColor": "bg-blue-500",
+      "properties": {
+        "walkable": false,
+        "cost": 99,
+        "biome": "water",
+        "type": "water",
+        "editorAnimated": true,
+        "editorAnimationDelay": 600,
+        "cascading": false,
+        "uiColor": "bg-blue-500"
+      }
+    },
+    "minecraft_waterfall": {
+      "phaserColor": 1201864,
+      "uiColor": "bg-blue-500",
+      "properties": {
+        "walkable": false,
+        "cost": 99,
+        "biome": "water",
+        "type": "waterfall",
+        "editorAnimated": true,
+        "editorAnimationDelay": 600,
+        "cascading": true,
+        "uiColor": "bg-blue-500"
+      }
+    }
+  }
+}

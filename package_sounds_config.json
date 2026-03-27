@@ -1,0 +1,48 @@
+{
+  "input_dir": "C:/Users/pilgr/myAssets",
+  "output_dir": "C:/myapps/temp",
+  "supported_exts": [".wav", ".mp3", ".ogg", ".flac", ".m4a", ".aac"],
+  "include_subdirectories": true,
+  "archive_sound_root": "sounds",
+  "manifest_path_prefix": "sounds",
+
+  "write_sounds_manifest": true,
+  "sounds_manifest_filename": "sounds.json",
+
+  "sound_defaults": {},
+
+  "category_defaults": {
+    "music": {
+      "loop": true
+    }
+  },
+
+  "sound_metadata": {
+    "ui/select_quick": {
+      "id": "sounds_ui_select_quick",
+      "category": "ui",
+      "volume": 0.7
+    },
+    "editor/stack_create": {
+      "id": "sounds_editor_stack_create",
+      "category": "editor",
+      "volume": 0.85
+    },
+    "editor/tile_delete": {
+      "id": "sounds_editor_tile_delete",
+      "category": "editor",
+      "volume": 0.85
+    },
+    "editor/click_brick": {
+      "id": "sounds_editor_click_brick",
+      "category": "editor",
+      "volume": 0.95
+    }
+  },
+
+  "upload_to_azure": true,
+  "azure_storage_account_name": "ksstorage",
+  "azure_container_name": "game-assets",
+  "azure_blob_prefix": "sounds",
+  "azure_zip_filename": "sounds_bundle.zip"
+}
