@@ -1,5 +1,5 @@
 {
-  "input_dir": "C:/Users/pilgr/myAssets",
+  "input_dir": "C:/Users/pilgr/myAssets/ks-content",
   "output_dir": "C:/myapps/temp",
   "supported_exts": [".wav", ".mp3", ".ogg", ".flac", ".m4a", ".aac"],
   "include_subdirectories": true,

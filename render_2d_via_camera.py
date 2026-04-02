@@ -1017,7 +1017,10 @@ for view_name, view_data in VIEWS.items():
                 "START_FRAME": start,
                 "END_FRAME": end,
                 "SAMPLED": len(frames) < (end - start + 1),
+                "FRAME_FILES": {},
             }
+
+        ANIM_METADATA[name]["FRAME_FILES"][view_name] = []
 
         log(f"\n📦 Rendering '{name}' ({len(frames)} frames) [{view_name}]")
 
@@ -1063,14 +1066,20 @@ for view_name, view_data in VIEWS.items():
             debug_mesh_bounds(mesh, frame)
             debug_camera_to_armature(cam, armature, frame)
 
-            scene.render.filepath = os.path.join(
-                anim_dir,
-                f"{name}_{str(i).zfill(3)}.png"
+            frame_filename = f"{name}_{str(i).zfill(3)}.png"
+            relative_frame_path = os.path.join(
+                f"2d_{view_name}",
+                name,
+                frame_filename
             )
+            scene.render.filepath = os.path.join(anim_dir, frame_filename)
 
             log(f"🎬 Rendering frame {frame} → {scene.render.filepath}")
             bpy.ops.render.render(write_still=True)
             GENERATED_FILES.append(scene.render.filepath)
+            ANIM_METADATA[name]["FRAME_FILES"][view_name].append(
+                relative_frame_path
+            )
 
 # ============================================================
 # WRITE CHARACTER JSON METADATA
@@ -1086,6 +1095,7 @@ char_json = {
             "START_FRAME": data["START_FRAME"],
             "END_FRAME": data["END_FRAME"],
             "SAMPLED": data["SAMPLED"],
+            "FRAME_FILES": data["FRAME_FILES"],
         }
         for anim_name, data in ANIM_METADATA.items()
     }

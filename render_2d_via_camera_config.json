@@ -1,6 +1,6 @@
 {
-  "GLB_PATH_ORG": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/eddie/eddie.glb",
-  "GLB_PATH": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/sally/sally.glb",
+  "GLB_PATH": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/eddie/eddie.glb",
+  "GLB_PATH_ORG": "C:/Users/pilgr/myApps/react/kingdom-stack-poc-ui/phaser-grid-prototype/public/assets/characters/sally/sally.glb",
   "RENDER_SIZE": 256,
   "CAMERA_FOV_DEG": 35.0,
   "CAMERA_HEIGHT_OFFSET": 1.0,
@@ -56,7 +56,7 @@
     "MODE": "ADD"
   },
   "VIEWS": {
-    "left": [-1, 0, -90]
+    "left": [1, 0, 90]
   },
   "UPLOAD_TO_AZURE": true,
   "AZURE_STORAGE_ACCOUNT_NAME": "ksstorage",
