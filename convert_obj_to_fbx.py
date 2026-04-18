@@ -15,6 +15,10 @@ if len(sys.argv) < 3:
 INPUT_OBJ_PATH = sys.argv[-2]
 OUTPUT_FBX_PATH = sys.argv[-1]
 
+# Keep the voxel face grid instead of merging coplanar faces into bigger
+# polygons. Larger polygons can show diagonal lighting artifacts after rigging.
+PRESERVE_VOXEL_FACE_GRID = True
+
 # ============================================================
 # VALIDATION
 # ============================================================
@@ -66,11 +70,24 @@ def mesh_stats(label, obj):
 
 def force_opaque_material(mat):
     """
-    Prevent alpha / transparency bugs in FBX → glTF.
+    Prevent alpha / transparency bugs in FBX -> glTF and keep voxel colors
+    looking matte instead of shiny or semi-transparent.
     Blender 5.0 compatible.
     """
     mat.use_backface_culling = False
     mat.blend_method = 'OPAQUE'
+    mat.diffuse_color[3] = 1.0
+
+    if hasattr(mat, "use_screen_refraction"):
+        mat.use_screen_refraction = False
+    if hasattr(mat, "show_transparent_back"):
+        mat.show_transparent_back = False
+    if hasattr(mat, "metallic"):
+        mat.metallic = 0.0
+    if hasattr(mat, "roughness"):
+        mat.roughness = 1.0
+    if hasattr(mat, "specular_intensity"):
+        mat.specular_intensity = 0.0
 
     if not mat.use_nodes:
         return
@@ -84,12 +101,31 @@ def force_opaque_material(mat):
     if not bsdf:
         return
 
-    # Force solid alpha
-    bsdf.inputs['Alpha'].default_value = 1.0
+    def set_input_if_present(name, value):
+        if name not in bsdf.inputs:
+            return
+
+        socket = bsdf.inputs[name]
+        current_value = socket.default_value
+        try:
+            socket.default_value = value
+        except (TypeError, ValueError):
+            if hasattr(current_value, "__len__"):
+                if len(current_value) == 4:
+                    socket.default_value = (value, value, value, current_value[3])
+                else:
+                    socket.default_value = tuple(value for _ in current_value)
+
+    # Force solid, matte material response.
+    set_input_if_present('Alpha', 1.0)
+    set_input_if_present('Metallic', 0.0)
+    set_input_if_present('Roughness', 1.0)
+    set_input_if_present('Specular IOR Level', 0.0)
+    set_input_if_present('Specular Tint', 0.0)
 
     # Remove alpha texture links
     for link in list(mat.node_tree.links):
-        if link.to_socket == bsdf.inputs['Alpha']:
+        if 'Alpha' in bsdf.inputs and link.to_socket == bsdf.inputs['Alpha']:
             mat.node_tree.links.remove(link)
 
 
@@ -164,27 +200,30 @@ bpy.ops.mesh.delete(type='FACE')
 bpy.ops.object.mode_set(mode='OBJECT')
 mesh_stats("After hollowing", obj)
 
-# ============================================================
-# PLANAR DISSOLVE
-# ============================================================
+if not PRESERVE_VOXEL_FACE_GRID:
+    # ============================================================
+    # PLANAR DISSOLVE
+    # ============================================================
 
-bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.object.mode_set(mode='EDIT')
 
-select_all_in_edit()
-bpy.ops.mesh.dissolve_limited(
-    angle_limit=0.0,
-    delimit={'NORMAL', 'MATERIAL', 'SHARP'}
-)
+    select_all_in_edit()
+    bpy.ops.mesh.dissolve_limited(
+        angle_limit=0.0,
+        delimit={'NORMAL', 'MATERIAL', 'SHARP'}
+    )
 
-# ============================================================
-# TRIANGLES → QUADS
-# ============================================================
+    # ============================================================
+    # TRIANGLES -> QUADS
+    # ============================================================
 
-select_all_in_edit()
-bpy.ops.mesh.tris_convert_to_quads(
-    face_threshold=0.698,
-    shape_threshold=0.698
-)
+    select_all_in_edit()
+    bpy.ops.mesh.tris_convert_to_quads(
+        face_threshold=0.698,
+        shape_threshold=0.698
+    )
+else:
+    bpy.ops.object.mode_set(mode='EDIT')
 
 select_all_in_edit()
 bpy.ops.mesh.delete_loose()
@@ -201,6 +240,12 @@ mesh_stats("Final optimized mesh", obj)
 
 for poly in obj.data.polygons:
     poly.use_smooth = False
+
+for edge in obj.data.edges:
+    edge.use_edge_sharp = True
+
+bpy.ops.object.shade_flat()
+obj.data.update()
 
 if obj.data.materials:
     sanitize_object_materials(obj)

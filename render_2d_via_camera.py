@@ -70,6 +70,7 @@ DEFAULT_CONFIG = {
     "CLEAN_VIEW_DIR": True,
     "CHAR_SETTINGS": {
         "JUMP_STRENGTH": 12.0,
+        "SPEED": 6.0,
         "SPRITE_SCALE_FACTOR": 0.24,
         "DEFAULT_ANIMATION_NAME": "idle",
     },
